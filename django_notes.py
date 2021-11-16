@@ -79,3 +79,8 @@
 ## STEP 2:
 # python3 manage.py migrate
 # tells us that the changes to the structure of our database have been made
+
+
+## on the website, django allows us to acces the admin side via a Super User
+
+# create username: admin and unique password
