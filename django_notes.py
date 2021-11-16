@@ -73,6 +73,9 @@
 
 
 ## STEP 1: Run the code on the database (makemigrations)
-
 # python3 manage.py makemigrations
 # this looks at "models.py" to see the changes you just made
+
+## STEP 2:
+# python3 manage.py migrate
+# tells us that the changes to the structure of our database have been made
