@@ -63,6 +63,12 @@
 #add "MainApp" to installed apps
 
 
+## Add our first model in "models.py" under "MainApp"
+
+#create class Topic
+#create str method
+
+
 
 
 
