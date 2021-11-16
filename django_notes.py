@@ -47,6 +47,22 @@
 #click "create a launch.json file"
 #press Play button --> server should be up and running again
 
-## Project has been completed... now we must create the APPS (journal entry)
+## Project has been completed...
+
+
+## Create a new web APP (journal entry)
+
+#python3 manage.py startapp MainApp
+#this creates a folder "MainApp" which includes several files, incl...
+    #admin.py, models.py, tests.py, views.py, etc.
+#this has created a new app "MainApp"
+
+## Need to tell our project that we've created a new app so it's included in the installed app
+
+#under "learning_log" go to settings.py and find INSTALLED APPS
+#add "MainApp" to installed apps
+
+
+
 
 
