@@ -45,3 +45,8 @@
 #click on "manage.py"
 #go to debugger
 #click "create a launch.json file"
+#press Play button --> server should be up and running again
+
+## Project has been completed... now we must create the APPS (journal entry)
+
+
