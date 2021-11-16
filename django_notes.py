@@ -84,3 +84,18 @@
 ## on the website, django allows us to acces the admin side via a Super User
 
 # create username: admin and unique password
+# fire up server
+# type /admin on webpage to access admin portal on your webpage
+
+
+## Register models under "admin.py"
+
+# allows us to access model on admin side
+
+
+## Add another model called "Entry" in "models.py"
+
+# we want to create a relationship btwn
+# we want a Topic to have multiple Entries
+# create Entry class
+# this acts as a Foreign Key relationship
