@@ -88,7 +88,7 @@
 # type /admin on webpage to access admin portal on your webpage
 
 
-## Register models under "admin.py"
+## STEP 3: Register models under "admin.py"
 
 # allows us to access model on admin side
 
@@ -99,3 +99,7 @@
 # we want a Topic to have multiple Entries
 # create Entry class
 # this acts as a Foreign Key relationship
+
+#################################################
+
+## Meta class
