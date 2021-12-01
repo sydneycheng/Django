@@ -10,4 +10,6 @@ urlpatterns = [
     # we've created an integer variable to distinguish via a PK for chess, rock climbing, etc
     # this acts as an identifying value
     path("topics/<int:topic_id>/", views.topic, name="topic"),
+    path("new_topic/", views.new_topic, name="new_topic"),
+    path("new_entry/<int:topic_id>/", views.new_entry, name="new_entry"),
 ]

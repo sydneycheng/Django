@@ -1,5 +1,5 @@
-from django.shortcuts import render
-
+from django.shortcuts import render, redirect
+from .forms import TopicForm, EntryForm
 from .models import Topic
 
 
@@ -33,3 +33,40 @@ def topic(request, topic_id):
     context = {"topic": topic, "entries": entries}
 
     return render(request, "MainApp/topic.html", context)
+
+
+def new_topic(request):
+    if request.method != "POST":  # this means it's a GET request
+        form = TopicForm()
+    else:
+        form = TopicForm(data=request.POST)  # this means it's a POST request
+
+        if form.is_valid():
+            form.save()
+
+            return redirect("MainApp:topics")
+
+    context = {"form": form}
+    return render(request, "MainApp/new_topic.html", context)
+
+    # context is a dictionary that allows us to pass data (to the topic.html file in this case)
+
+
+def new_entry(request, topic_id):
+    topic = Topic.objects.get(id=topic_id)
+    if request.method != "POST":
+        form = EntryForm()
+    else:
+        form = EntryForm(data=request.POST)
+
+        if form.is_valid():
+            new_entry = form.save(
+                commit=False
+            )  # we aren't ready to write this to the database just yet; this is a temporary entry
+            new_entry.topic = topic
+            new_entry.save()
+
+            return redirect("MainApp:topic", topic_id=topic_id)
+
+    context = {"form": form, "topic": topic}
+    return render(request, "MainApp/new_entry.html", context)
