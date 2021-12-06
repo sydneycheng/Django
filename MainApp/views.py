@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from .forms import TopicForm, EntryForm
-from .models import Topic
+from .models import Topic, Entry
 
 
 # Create your views here.
@@ -60,13 +60,35 @@ def new_entry(request, topic_id):
         form = EntryForm(data=request.POST)
 
         if form.is_valid():
+            # When we call save(), we include the argument comit=False to tell Django to create
+            # a new entry object and assign it to new_entry w/o saving it to the database yet.
             new_entry = form.save(
                 commit=False
             )  # we aren't ready to write this to the database just yet; this is a temporary entry
             new_entry.topic = topic
             new_entry.save()
-
+            form.save()
             return redirect("MainApp:topic", topic_id=topic_id)
 
     context = {"form": form, "topic": topic}
     return render(request, "MainApp/new_entry.html", context)
+
+
+def edit_entry(request, entry_id):
+    """Edit an existing entry."""
+    entry = Entry.objects.get(id=entry_id)
+    topic = entry.topic
+
+    if request.method != "POST":
+        # This argument tells Django to create the form prefilled
+        # with info from the existing entry objects.
+        form = EntryForm(instance=entry)
+    else:
+        # POST data submitted; process data.
+        form = EntryForm(instance=entry, data=request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect("MainApp:topic", topic_id=topic.id)
+
+    context = {"entry": entry, "topic": topic, "form": form}
+    return render(request, "MainApp/edit_entry.html", context)
