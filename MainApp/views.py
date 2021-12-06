@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from .forms import TopicForm, EntryForm
 from .models import Topic, Entry
 from django.contrib.auth.decorators import login_required
+from django.http import Http404
 
 # Create your views here.
 def index(request):
@@ -10,9 +11,8 @@ def index(request):
 
 @login_required
 def topics(request):
-    topics = Topic.objects.order_by(
-        "date_added"
-    )  # if you put a '-' in front of "date_added" it would sort by descending order
+    topics = Topic.objects.filter(owner=request.user).order_by("date_added")
+    # if you put a '-' in front of "date_added" it would sort by descending order
 
     context = {"topics": topics}
     # context is our dictionary
@@ -27,6 +27,8 @@ def topics(request):
 # topic_id comes from urls.py
 def topic(request, topic_id):
     topic = Topic.objects.get(id=topic_id)
+    if topic.owner != request.user:
+        raise Http404
 
     entries = topic.entry_set.all()
 
