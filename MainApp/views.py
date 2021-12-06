@@ -1,13 +1,14 @@
 from django.shortcuts import render, redirect
 from .forms import TopicForm, EntryForm
 from .models import Topic, Entry
-
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def index(request):
     return render(request, "MainApp/index.html")
 
 
+@login_required
 def topics(request):
     topics = Topic.objects.order_by(
         "date_added"
@@ -22,6 +23,7 @@ def topics(request):
     # we are passing this dictionary (context) to our html file
 
 
+@login_required
 # topic_id comes from urls.py
 def topic(request, topic_id):
     topic = Topic.objects.get(id=topic_id)
@@ -35,6 +37,7 @@ def topic(request, topic_id):
     return render(request, "MainApp/topic.html", context)
 
 
+@login_required
 def new_topic(request):
     if request.method != "POST":  # this means it's a GET request
         form = TopicForm()
@@ -52,6 +55,7 @@ def new_topic(request):
     # context is a dictionary that allows us to pass data (to the topic.html file in this case)
 
 
+@login_required
 def new_entry(request, topic_id):
     topic = Topic.objects.get(id=topic_id)
     if request.method != "POST":
@@ -74,6 +78,7 @@ def new_entry(request, topic_id):
     return render(request, "MainApp/new_entry.html", context)
 
 
+@login_required
 def edit_entry(request, entry_id):
     """Edit an existing entry."""
     entry = Entry.objects.get(id=entry_id)
