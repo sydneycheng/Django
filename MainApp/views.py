@@ -47,8 +47,10 @@ def new_topic(request):
         form = TopicForm(data=request.POST)  # this means it's a POST request
 
         if form.is_valid():
-            form.save()
-
+            new_topic = form.save(commit=False)
+            new_topic.owner = request.user
+            new_topic.save()
+            # redirect the user's browser to the topics page
             return redirect("MainApp:topics")
 
     context = {"form": form}
