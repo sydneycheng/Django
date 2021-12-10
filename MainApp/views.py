@@ -87,7 +87,8 @@ def edit_entry(request, entry_id):
     """Edit an existing entry."""
     entry = Entry.objects.get(id=entry_id)
     topic = entry.topic
-
+    if topic.owner != request.user:
+        raise Http404
     if request.method != "POST":
         # This argument tells Django to create the form prefilled
         # with info from the existing entry objects.

@@ -5,9 +5,8 @@ from django.contrib.auth.forms import UserCreationForm
 # Create your views here.
 def register(request):
     if request.method != "POST":
-        form = (
-            UserCreationForm()
-        )  # we are loading up a blank form for this GET request (reading from database)
+        form = UserCreationForm()
+        # we are loading up a blank form for this GET request (reading from database)
     else:
         form = UserCreationForm(
             data=request.POST
