@@ -13,7 +13,7 @@
 {% for entry in entries %}
 <div class="card mb-3">
     <h4 class="card-header">
-        {{ entry.date_added|date: 'M d, Y H:i' }}
+        {{ entry.date_added|date:'M d, Y H:i' }}
         <small><a href="{% url 'MainApp:edit_entry' entry.id %}">
                 edit entry</a></small>
     </h4>
